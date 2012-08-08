@@ -21,6 +21,7 @@ import java.util.Queue;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Animation;
@@ -66,13 +67,28 @@ final class Manager extends Handler {
 	 */
 	void add(Crouton crouton) {
 		croutonQueue.add(crouton);
+		
+		Log.d("CroutonMgr","adding Crouton");
 		if (inAnimation == null) {
-			inAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
-					android.R.anim.fade_in);
+			Log.d("CroutonMgr","In not found");
+			if(crouton.getStyle().animIn > -1){
+				Log.d("CroutonMgr","Use custom");
+				inAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
+						crouton.getStyle().animIn);
+			}else{
+				Log.d("CroutonMgr","Use system");
+				inAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
+						android.R.anim.fade_in);
+			}
 		}
 		if (outAnimation == null) {
-			outAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
-					android.R.anim.fade_out);
+			if(crouton.getStyle().animOut > -1){
+				outAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
+						crouton.getStyle().animOut);
+			}else{
+				outAnimation = AnimationUtils.loadAnimation(crouton.getActivity(),
+						android.R.anim.fade_out);
+			}
 		}
 		displayCrouton();
 	}

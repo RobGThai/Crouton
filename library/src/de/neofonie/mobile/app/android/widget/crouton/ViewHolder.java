@@ -15,6 +15,7 @@
  */
 package de.neofonie.mobile.app.android.widget.crouton;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Shader;
@@ -67,6 +68,8 @@ final class ViewHolder {
 	 *            The {@link Crouton} that the view should be attached to.
 	 * @return The view for this {@link Crouton};
 	 */
+	@SuppressWarnings("deprecation")
+	@TargetApi(4)
 	public static View viewForCrouton(Crouton crouton) {
 		if (holder == null) {
 			holder = new ViewHolder(crouton);
@@ -110,7 +113,16 @@ final class ViewHolder {
 		text.setText(crouton.getText());
 		text.setLayoutParams(sParams);
 		text.setTypeface(Typeface.DEFAULT_BOLD);
-		text.setPadding(PADDING, PADDING, PADDING, PADDING);
+		
+		if(crouton.getStyle().paddings != null){
+			text.setPadding(crouton.getStyle().paddings[0],
+					crouton.getStyle().paddings[1],
+					crouton.getStyle().paddings[2],
+					crouton.getStyle().paddings[3]);
+		}else{
+			text.setPadding(PADDING, PADDING, PADDING, PADDING);
+		}
+		
 		text.setGravity(Gravity.CENTER);
 		
 		background.setLayoutParams(sParams);

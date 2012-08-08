@@ -116,6 +116,18 @@ public final class Crouton {
 		Manager manager = Manager.getInstance();
 		manager.add(this);
 	}
+	
+	/**
+	 * Override transition in and out of the screen to Crouton
+	 * @param animIn
+	 * @param animOut
+	 * @return
+	 */
+	public Crouton overridePendingTransition(int animIn, int animOut){
+		this.style.overridePendingTransition(animIn, animOut);
+		
+		return this;
+	}
 
 	/**
 	 * Cancels a {@link Crouton} immediately.

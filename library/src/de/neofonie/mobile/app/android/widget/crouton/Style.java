@@ -30,7 +30,8 @@ import android.view.ViewGroup.LayoutParams;
 public class Style {
   public static final Style ALERT   = new Style(5000,
                                                 android.R.color.holo_red_light,
-                                                LayoutParams.WRAP_CONTENT);
+                                                LayoutParams.WRAP_CONTENT,
+                                                android.R.color.white);
   public static final Style CONFIRM = new Style(3000,
                                                 android.R.color.holo_green_light,
                                                 LayoutParams.WRAP_CONTENT);
@@ -65,6 +66,21 @@ public class Style {
    * 0 sets the text color to the system theme default.
    */
   final int                 textColor;
+  
+  /**
+   * Paddings of the view
+   */
+  int[] 				paddings;
+
+  /**
+   * Animation to use when display
+   */
+  int 						animIn = -1;
+
+  /**
+   * Animation to use when dismiss
+   */
+  int 						animOut = -1;
 
   /**
    * Creates a new {@link Crouton} with the provided parameters.
@@ -116,12 +132,48 @@ public class Style {
    *          The resource id of the text's color.
    */
   public Style(int duration, int color, int height, int background, boolean tile, int textColor) {
+	    this(duration, color, height, 0, false, textColor, null);
+  }
+
+
+  /**
+   * Creates a new {@link Crouton} with the provided parameters.
+   * 
+   * @param duration
+   *          The duration the crouton will be displayed {@link Crouton} in milliseconds.
+   * @param color
+   *          The color's resource id.
+   * @param height
+   *          The height of the {@link Crouton}. Either {@link LayoutParams#MATCH_PARENT} or
+   *          {@link LayoutParams#WRAP_CONTENT}.
+   * @param background
+   *          A background image drawable's resource id.
+   * @param tile
+   *          <code>true</code> if you want the background to be tiled, else <code>false</code>.
+   * @param textColor
+   *          The resource id of the text's color.
+   * @param paddings
+   *          Padding size of the view [left, top, right, bottom].
+   */
+  public Style(int duration, int color, int height, int background, boolean tile, int textColor, int[] paddings) {
     this.duration = duration;
     this.color = color;
     this.height = height;
     this.background = background;
     this.tile = tile;
     this.textColor = textColor;
+    this.paddings = paddings;
+  }
+  
+  public Style overridePadding(int[] paddings){
+	  this.paddings = paddings;
+	  return this;
+  }
+  
+  public Style overridePendingTransition(int animIn, int animOut){
+	  this.animIn = animIn;
+	  this.animOut = animOut;
+	  return this;
   }
 }
 
