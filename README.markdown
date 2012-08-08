@@ -2,6 +2,10 @@
 
 Context sensitive notifications for Android
 
+# Objective of this fork
+
+To extend customizability of Crouton while retaining the simplicity of its API.
+
 ## Overview
 
 **Crouton**, is a class that can be used by Android developers that feel the need for an **alternative to the Context insensitive [Toast](http://developer.android.com/reference/android/widget/Toast.html)**.
