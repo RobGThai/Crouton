@@ -16,7 +16,7 @@
 package de.neofonie.mobile.app.android.widget.crouton;
 
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.Queue;  
 
 import android.app.Activity;
 import android.os.Handler;
